@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración de Dispositivo Embebido</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #6200ea;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #3700b3;
+        }
+        .modbus-params { display: none; }
+    </style>
+    <script>
+        function toggleModbusParams() {
+            const modbusType = document.querySelector('input[name="modbus"]:checked');
+            const rtuParams = document.getElementById('rtu-params');
+            const tcpParams = document.getElementById('tcp-params');
+            
+            if (modbusType) {
+                if (modbusType.value === 'rtu' || modbusType.value === 'ansi') {
+                    rtuParams.style.display = 'block';
+                    tcpParams.style.display = 'none';
+                } else if (modbusType.value === 'tcp') {
+                    rtuParams.style.display = 'none';
+                    tcpParams.style.display = 'block';
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Configuración del Dispositivo</h1>
+        </header>
+
+        <form action="/form.html" method="post">
+            <h2>Configuración de WiFi</h2>
+            <ul>
+                <li>
+                    <label for="wifi_id">Nombre de la red:</label>
+                    <input type="text" name="wifi_id" id="wifi_id" required>
+                </li>
+                <li>
+                    <label for="wifi_pass">Contraseña:</label>
+                    <input type="password" name="wifi_pass" id="wifi_pass" required>
+                </li>
+            </ul>
+
+            <h2>Parámetros del Dispositivo</h2>
+            <ul>
+                <li>
+                    <label>Protocolo Modbus:</label>
+                    <input type="radio" name="modbus" value="rtu" onchange="toggleModbusParams()"> RTU
+                    <input type="radio" name="modbus" value="ansi" onchange="toggleModbusParams()"> ANSI
+                    <input type="radio" name="modbus" value="tcp" onchange="toggleModbusParams()"> TCP/IP
+                </li>
+            </ul>
+
+            <div id="rtu-params" class="modbus-params">
+                <h3>Parámetros Modbus Serial</h3>
+                <ul>
+                    <li>
+                        <label for="serial_port">Puerto Serial:</label>
+                        <input type="text" name="serial_port" id="serial_port">
+                    </li>
+                    <li>
+                        <label for="baudrate">Baudrate:</label>
+                        <input type="text" name="baudrate" id="baudrate">
+                    </li>
+                    <li>
+                        <label for="parity">Paridad:</label>
+                        <select name="parity" id="parity">
+                            <option value="none">Ninguna</option>
+                            <option value="even">Par</option>
+                            <option value="odd">Impar</option>
+                        </select>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="tcp-params" class="modbus-params">
+                <h3>Parámetros Modbus TCP/IP</h3>
+                <ul>
+                    <li>
+                        <label for="tcp_ip">Dirección IP:</label>
+                        <input type="text" name="tcp_ip" id="tcp_ip">
+                    </li>
+                    <li>
+                        <label for="tcp_port">Puerto:</label>
+                        <input type="text" name="tcp_port" id="tcp_port">
+                    </li>
+                </ul>
+            </div>
+
+            <button type="submit">Guardar Configuración</button>
+        </form>
+    </div>
+    
+</body>
+</html>
+
