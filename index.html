@@ -106,7 +106,7 @@
                 <li>
                     <label>Protocolo Modbus:</label>
                     <input type="radio" name="modbus" value="rtu" onchange="toggleModbusParams()"> RTU
-                    <input type="radio" name="modbus" value="ansi" onchange="toggleModbusParams()"> ANSI
+                    <input type="radio" name="modbus" value="ascii" onchange="toggleModbusParams()"> ASCII
                     <input type="radio" name="modbus" value="tcp" onchange="toggleModbusParams()"> TCP/IP
                 </li>
             </ul>
@@ -114,10 +114,7 @@
             <div id="rtu-params" class="modbus-params">
                 <h3>Parámetros Modbus Serial</h3>
                 <ul>
-                    <li>
-                        <label for="serial_port">Puerto Serial:</label>
-                        <input type="text" name="serial_port" id="serial_port">
-                    </li>
+
                     <li>
                         <label for="baudrate">Baudrate:</label>
                         <input type="text" name="baudrate" id="baudrate">
